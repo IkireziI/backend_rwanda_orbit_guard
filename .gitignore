@@ -1,0 +1,9 @@
+# Create .gitignore file
+cat > .gitignore << EOF
+__pycache__/
+venv*/
+*.pyc
+.DS_Store
+.env
+*.log
+EOF
