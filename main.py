@@ -51,14 +51,13 @@ app = FastAPI(
     description="API for calculating satellite collision risk using the rwanda_orbit_guard_model."
 )
 
-# --- UPDATED CORS SETTINGS FOR DEPLOYMENT ---
-# Allow both your Vercel frontend and local development
+# --- UPDATED CORS SETTINGS FOR PRODUCTION ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://rwanda-orbit-guard-frontend.vercel.app",  # Your Vercel frontend
-        "http://localhost:3000",                          # Local development
-        "http://127.0.0.1:3000",                         # Local development
+        "https://rwanda-orbit-guard-ktrk.vercel.app",  # Your Vercel frontend
+        "http://localhost:3000",                       # Local development
+        "http://127.0.0.1:3000",                      # Local development
     ],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
@@ -248,7 +247,8 @@ def read_root():
 def health_check():
     return {"status": "healthy", "message": "API is running smoothly"}
 
+# --- Render deployment support ---
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
